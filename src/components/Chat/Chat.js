@@ -23,22 +23,6 @@ class Chat extends Component {
         }
     }
 
-    render () {
-        const { messages } = this.state
-        return (
-            <div className='chat'>
-                <div className="message-list">
-                    <div className="messages" ref={(el) => { this.messageList = el }}>
-                        {messages.map((message, countId) => {
-                            return <Message key={countId} text={message.text} />
-                        })}
-                    </div>
-                </div>
-                <input onChange={ this.changeInputMessage } onKeyPress={ this.sendMessageOnEnter } className='input-message' value={this.state.messageInput}></input>
-            </div>
-        )
-    }
-
     scrollToBottom = () => {
         this.messageList.scrollIntoView({block: "end", behavior: "smooth"})
     }
@@ -49,6 +33,28 @@ class Chat extends Component {
     
     componentDidUpdate() {
         this.scrollToBottom();
+    }
+
+    render () {
+        const { messages } = this.state
+        
+        return (
+            <div className='chat'>
+                <div className="message-list">
+                    <div className="messages" ref={(el) => { this.messageList = el }}>
+                        {messages.map((message, countId) => {
+                            return <Message key={countId} text={message.text} />
+                        })}
+                    </div>
+                </div>
+                <input
+                    onChange={ this.changeInputMessage }
+                    onKeyPress={ this.sendMessageOnEnter }
+                    className='input-message'
+                    value={this.state.messageInput}>
+                </input>
+            </div>
+        )
     }
 }
 
